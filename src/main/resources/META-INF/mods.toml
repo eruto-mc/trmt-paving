@@ -1,0 +1,40 @@
+modLoader="javafml"
+loaderVersion="[47,)"
+license="MIT"
+issueTrackerURL="https://github.com/milkucha/trmt/issues/59"
+
+[[mods]]
+    modId="trmt_paving"
+    version="${file.jarVersion}"
+    displayName="TRMT Paving"
+    authors="erutobusiness"
+    description='''
+踏み固めた道（The Roads More Travelled の侵食の終点）を、さらに歩き続けると
+舗装ブロック（既定 minecraft:dirt_path）へ進める。
+
+上流に同等の機能を提案してある（milkucha/trmt#59）。取り込まれたら本MODは不要になる。
+
+⚠ 変換時に ErosionMapManager.removeEntry を必ず呼ぶ。
+   これを怠ると侵食の記録が永久に残る（datapack ではこの後始末ができないため MOD にした）。
+'''
+
+[[dependencies.trmt_paving]]
+    modId="forge"
+    mandatory=true
+    versionRange="[47,)"
+    ordering="NONE"
+    side="BOTH"
+
+[[dependencies.trmt_paving]]
+    modId="minecraft"
+    mandatory=true
+    versionRange="[1.20.1,1.21)"
+    ordering="NONE"
+    side="BOTH"
+
+[[dependencies.trmt_paving]]
+    modId="trmt"
+    mandatory=true
+    versionRange="[0.5,)"
+    ordering="AFTER"
+    side="BOTH"

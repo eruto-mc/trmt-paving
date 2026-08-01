@@ -1,0 +1,46 @@
+plugins {
+    id 'net.minecraftforge.gradle' version '[6.0.24,6.2)'
+}
+
+version = '1.0'
+group = 'net.erutobusiness'
+base { archivesName = 'trmt_paving' }
+
+java.toolchain.languageVersion = JavaLanguageVersion.of(17)
+
+tasks.withType(JavaCompile).configureEach {
+    options.encoding = 'UTF-8'
+}
+
+minecraft {
+    mappings channel: 'official', version: '1.20.1'
+    runs {
+        server {
+            workingDirectory project.file('run')
+            property 'forge.logging.console.level', 'info'
+            mods {
+                trmt_paving {
+                    source sourceSets.main
+                }
+            }
+        }
+    }
+}
+
+dependencies {
+    minecraft 'net.minecraftforge:forge:1.20.1-47.3.0'
+    // TRMT の公開クラス（ErosionMapManager / TRMTBlocks / TRMTConfig）を呼ぶためのコンパイル用参照。
+    // 実行時は導入済みの本体を使う（同梱しない・fork でもない）。
+    compileOnly files('libs/trmt.jar')
+}
+
+jar {
+    manifest {
+        attributes([
+            'Specification-Title'   : 'trmt_paving',
+            'Specification-Version' : '1',
+            'Implementation-Title'  : 'TRMT Paving',
+            'Implementation-Version': project.version
+        ])
+    }
+}
