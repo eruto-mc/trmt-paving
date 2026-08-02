@@ -33,6 +33,7 @@ public class TrmtPaving {
     public static final ForgeConfigSpec SPEC;
     public static final ForgeConfigSpec.BooleanValue ENABLED;
     public static final ForgeConfigSpec.ConfigValue<String> RESULT_BLOCK;
+    public static final ForgeConfigSpec.BooleanValue DEBUG;
 
     static {
         ForgeConfigSpec.Builder b = new ForgeConfigSpec.Builder();
@@ -43,6 +44,10 @@ public class TrmtPaving {
         RESULT_BLOCK = b
                 .comment("舗装後のブロックID。Via Romana の道判定に入っているものを選ぶこと")
                 .define("resultBlock", "minecraft:dirt_path");
+        DEBUG = b
+                .comment("検証用。踏むたびに蓄積と閾値をログへ出す。",
+                         "「踏んだのに舗装されない」を調べるときだけ true にする（通常は false）")
+                .define("debugLog", false);
         b.pop();
         SPEC = b.build();
     }

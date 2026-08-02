@@ -67,7 +67,13 @@ public final class PavingHandler {
         }
 
         Level level = player.level();
-        if (level.isClientSide || !player.onGround()) {
+        if (level.isClientSide) {
+            return;
+        }
+        if (!player.onGround()) {
+            // ⚠ 接地していない tick は数えない。/tp 直後は接地が戻るまで数tick かかるので、
+            //    検証台本が「踏んだのに増えない」ときは真っ先にここを疑う
+            debug(player, "not-on-ground");
             return;
         }
 
@@ -107,13 +113,34 @@ public final class PavingHandler {
             return;
         }
         ErosionEntry entry = chunkMap.getEntry(ground);
-        if (entry == null || entry.getWalkedOnCount() < entry.getThreshold()) {
+        if (entry == null) {
+            debug(player, "entry-null after onStep " + ground);
+            return;
+        }
+        debug(player, String.format("step %s block=%s count=%.2f/%.2f",
+                ground, entry.getTrackedBlock(), entry.getWalkedOnCount(), entry.getThreshold()));
+        if (entry.getWalkedOnCount() < entry.getThreshold()) {
             return;
         }
 
         level.setBlockAndUpdate(ground, paved);
         // ⚠ ここを省くと侵食の記録が永久に残る。ShovelItemMixin と同じ後始末。
         manager.removeEntry(ground);
+        debug(player, "PAVED " + ground);
+    }
+
+    /** 検証用のログ。同じ理由を連続で出さないよう、直前と違うときだけ書く。 */
+    private static String lastDebug = "";
+
+    private static void debug(ServerPlayer player, String msg) {
+        if (!Boolean.TRUE.equals(TrmtPaving.DEBUG.get())) {
+            return;
+        }
+        if (msg.equals(lastDebug)) {
+            return;
+        }
+        lastDebug = msg;
+        org.slf4j.LoggerFactory.getLogger(TrmtPaving.MOD_ID).info("[trmt_paving] {}", msg);
     }
 
     private static BlockState resolveResultBlock() {
