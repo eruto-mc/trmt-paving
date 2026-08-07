@@ -27,11 +27,20 @@ minecraft {
     }
 }
 
+repositories {
+    // MOD の依存を取る maven。手元に jar を置かずに済ませるため（2026-08-07）
+    maven {
+        name = "Modrinth"
+        url = "https://api.modrinth.com/maven"
+        content { includeGroup "maven.modrinth" }
+    }
+}
+
 dependencies {
     minecraft 'net.minecraftforge:forge:1.20.1-47.3.0'
     // TRMT の公開クラス（ErosionMapManager / TRMTBlocks / TRMTConfig）を呼ぶためのコンパイル用参照。
     // 実行時は導入済みの本体を使う（同梱しない・fork でもない）。
-    compileOnly files('libs/trmt.jar')
+    compileOnly "maven.modrinth:the-roads-more-travelled:0.5.1b-1.20.1-forge"
 }
 
 jar {
