@@ -12,7 +12,7 @@ issueTrackerURL="https://github.com/milkucha/trmt/issues/59"
 踏み固めた道（The Roads More Travelled の侵食の終点）を、さらに歩き続けると
 舗装ブロック（既定 minecraft:dirt_path）へ進める。
 
-上流に同等の機能を提案してある（milkucha/trmt#59）。取り込まれたら本MODは不要になる。
+作者に同等の機能を提案してある（milkucha/trmt#59）。取り込まれたら本MODは不要になる。
 
 ⚠ 変換時に ErosionMapManager.removeEntry を必ず呼ぶ。
    これを怠ると侵食の記録が永久に残る（datapack ではこの後始末ができないため MOD にした）。

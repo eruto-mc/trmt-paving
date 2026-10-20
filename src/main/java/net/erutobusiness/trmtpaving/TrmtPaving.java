@@ -23,7 +23,7 @@ import net.minecraftforge.fml.config.ModConfig;
  * 「ブロック単位の永続マップが肥大して OOM」を経験しているため、これを許容しない。
  *
  * <p><b>fork ではない。</b> TRMT の公開クラスを呼ぶだけで、jar の同梱も再配布もしない。
- * 同等の機能は上流へ提案済み（milkucha/trmt#59）。取り込まれたら本MODは役目を終える。
+ * 同等の機能は作者へ提案済み（milkucha/trmt#59）。取り込まれたら本MODは役目を終える。
  */
 @Mod(TrmtPaving.MOD_ID)
 public class TrmtPaving {

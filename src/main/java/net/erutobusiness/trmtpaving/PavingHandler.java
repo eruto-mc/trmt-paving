@@ -38,7 +38,7 @@ import net.minecraftforge.fml.common.Mod;
  * <p>副次的に、TRMT が終点ブロックに対して {@code onStep} を呼ばない
  * （＝{@code lastTouchedGameTime} が更新されず、使い続けている道でも
  * 逆侵食のタイマーが進む）点も、こちらが呼ぶことで解消される。
- * この挙動は上流へ質問済み（milkucha/trmt#60）。
+ * この挙動は作者へ質問済み（milkucha/trmt#60）。
  */
 @Mod.EventBusSubscriber(modid = TrmtPaving.MOD_ID)
 public final class PavingHandler {
@@ -95,7 +95,7 @@ public final class PavingHandler {
             return;
         }
 
-        // 加算量は TRMT の設定に合わせる（mounted は player 倍率に掛ける、が上流の仕様）
+        // 加算量は TRMT の設定に合わせる（mounted は player 倍率に掛ける、が元の MOD の仕様）
         TRMTConfig.Multipliers multipliers = TRMTConfig.get().erosionMultipliers;
         float amount = multipliers.player;
         if (player.isPassenger()) {
